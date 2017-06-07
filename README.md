@@ -14,6 +14,16 @@ A pawn can move on NxN (5 <= N <= 10) chequerboard horizontally, vertically and 
 
 This repository finds at least one path for the pawn to visit all tiles on the board following the above rules, starting from any tile.
 
+### Solution
+
+Since, finding the Hamiltonian Path is a NP-complete problem, in the worst case running time complexity is O(N!).
+
+Backtracking algorithm is used to find a possible path.
+
+Initially, an adjacency matrix is generated according to the rules provided in the description section.
+Then, from the user provided entry point, the algorithm tries to find a possible path using backtracking. 
+If it finds a valid path, prints the results and terminates.
+
 ### Instructions
 
 1) Clone the repository.
