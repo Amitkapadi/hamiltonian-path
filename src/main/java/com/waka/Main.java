@@ -16,7 +16,7 @@ public class Main {
             boardSize = scanner.nextInt();
         }
 
-        System.out.println("Enter entry point ? (x,y)");
+        System.out.println("Enter entry point ? (x,y) - Space separated two integers..");
         int x = scanner.nextInt();
         int y = scanner.nextInt();
 
