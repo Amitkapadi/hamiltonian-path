@@ -28,6 +28,7 @@ public class Main {
 
         long start = System.currentTimeMillis();
         final HamiltonianPath hamiltonianPath = new HamiltonianPath(boardSize);
+        System.out.println("Calculating path.. Please wait, it may take a while..");
         hamiltonianPath.findPath(x, y);
 
         System.out.println("It took " + (System.currentTimeMillis() - start) + " ms to compute..");
