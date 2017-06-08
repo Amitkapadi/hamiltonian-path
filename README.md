@@ -16,13 +16,14 @@ This repository finds at least one path for the pawn to visit all tiles on the b
 
 ### Solution
 
-Since, finding the Hamiltonian Path is a NP-complete problem, in the worst case running time complexity is O(N!).
-
-Backtracking algorithm is used to find a possible path.
+Since, finding the Hamiltonian Path is a NP-complete problem. Backtracking algorithm is used to find a possible path.
+Using backtracking, in the worst case running time complexity is O(N!).
 
 Initially, an adjacency matrix is generated according to the rules provided in the description section.
 Then, from the user provided entry point, the algorithm tries to find a possible path using backtracking. 
-If it finds a valid path, prints the results and terminates.
+When it finds a valid path, prints the results and terminates.
+
+For most of the cases execution ends quite fast, however, in same cases it may take quite long to find a possible path, due to the nature of the solution.
 
 ### Instructions
 

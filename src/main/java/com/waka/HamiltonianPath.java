@@ -8,15 +8,23 @@ import java.util.Arrays;
 public class HamiltonianPath {
     private final int boardSize;
     private final int vertexCount;
-
     private final boolean[][] adjacencyMatrix;
-    private final boolean[] visited;
+
+    private boolean[] visited;
 
     public HamiltonianPath(int boardSize) {
         this.boardSize = boardSize;
         this.vertexCount = boardSize * boardSize;
-        this.visited = new boolean[this.vertexCount];
         this.adjacencyMatrix = generateAdjacencyMatrix();
+    }
+
+    public static void printPath(int boardSize, int path[]) {
+        for (int i : path) {
+            int x = i % boardSize;
+            int y = i / boardSize;
+            System.out.print("(" + x + "," + y + ") ");
+        }
+        System.out.println();
     }
 
     private boolean solver(int[] path, int position) {
@@ -32,7 +40,7 @@ public class HamiltonianPath {
                 path[position] = v;
                 visited[v] = true;
 
-                // recursively solve for next path step
+                // recursively solve for next position
                 if (solver(path, position+1)) {
                     return true;
                 }
@@ -46,22 +54,24 @@ public class HamiltonianPath {
         return false;
     }
 
-    void findPath(int x, int y) {
+    int[] findPath(int x, int y) {
+        // reset visited array
+        visited = new boolean[this.vertexCount];
         int[] path = new int[vertexCount];
 
         Arrays.fill(path, -1);
 
-        path[0] = vertexPosition(x, y);
+        path[0] = positionToVertex(x, y);
         visited[path[0]] = true;
 
         if (!solver(path, 1)) {
-            System.out.println("No solution..");
+            return null;
         } else {
-            printPath(path);
+            return path;
         }
     }
 
-    private int vertexPosition(int x, int y) {
+    private int positionToVertex(int x, int y) {
         return y * boardSize + x;
     }
 
@@ -70,57 +80,45 @@ public class HamiltonianPath {
         return adjacencyMatrix[path[position-1]][v] && !visited[v];
     }
 
-    private void printPath(int path[]) {
-        for (int i : path) {
-            int x = i % boardSize;
-            int y = i / boardSize;
-            System.out.print("(" + x + "," + y + ") ");
-        }
-        System.out.println();
-    }
-
+    // generate adjacency matrix for given board size
     private boolean[][] generateAdjacencyMatrix() {
         boolean[][] adjMatrix = new boolean[vertexCount][vertexCount];
 
         for (int x = 0; x < boardSize; x++) {
             for (int y = 0; y < boardSize; y++) {
                 if (0 <= x - 3) {
-                    adjMatrix[vertexPosition(x, y)][vertexPosition(x-3, y)] = true;
+                    adjMatrix[positionToVertex(x, y)][positionToVertex(x-3, y)] = true;
                 }
 
                 if (x + 3 < boardSize) {
-                    adjMatrix[vertexPosition(x, y)][vertexPosition(x+3, y)] = true;
+                    adjMatrix[positionToVertex(x, y)][positionToVertex(x+3, y)] = true;
                 }
 
                 if (0 <= y - 3) {
-                    adjMatrix[vertexPosition(x, y)][vertexPosition(x, y-3)] = true;
+                    adjMatrix[positionToVertex(x, y)][positionToVertex(x, y-3)] = true;
                 }
 
                 if (y + 3 < boardSize) {
-                    adjMatrix[vertexPosition(x, y)][vertexPosition(x, y+3)] = true;
+                    adjMatrix[positionToVertex(x, y)][positionToVertex(x, y+3)] = true;
                 }
 
                 if (0 <= x - 2 && 0 <= y - 2) {
-                    adjMatrix[vertexPosition(x, y)][vertexPosition(x-2, y-2)] = true;
+                    adjMatrix[positionToVertex(x, y)][positionToVertex(x-2, y-2)] = true;
                 }
 
                 if (0 <= x - 2 && y + 2 < boardSize) {
-                    adjMatrix[vertexPosition(x, y)][vertexPosition(x-2, y+2)] = true;
+                    adjMatrix[positionToVertex(x, y)][positionToVertex(x-2, y+2)] = true;
                 }
 
                 if (x + 2 < boardSize && 0 <= y - 2) {
-                    adjMatrix[vertexPosition(x, y)][vertexPosition(x+2, y-2)] = true;
+                    adjMatrix[positionToVertex(x, y)][positionToVertex(x+2, y-2)] = true;
                 }
 
                 if (x + 2 < boardSize && y + 2 < boardSize) {
-                    adjMatrix[vertexPosition(x, y)][vertexPosition(x+2, y+2)] = true;
+                    adjMatrix[positionToVertex(x, y)][positionToVertex(x+2, y+2)] = true;
                 }
             }
         }
-
-//        for (int i = 0; i < adjMatrix.length; i++) {
-//            System.out.println(Arrays.toString(adjMatrix[i]));
-//        }
 
         return adjMatrix;
     }
