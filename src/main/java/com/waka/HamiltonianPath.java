@@ -64,11 +64,11 @@ public class HamiltonianPath {
         path[0] = positionToVertex(x, y);
         visited[path[0]] = true;
 
-        if (!solver(path, 1)) {
-            return null;
-        } else {
+        if (solver(path, 1)) {
             return path;
         }
+
+        return null;
     }
 
     private int positionToVertex(int x, int y) {

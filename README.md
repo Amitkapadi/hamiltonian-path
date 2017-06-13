@@ -25,6 +25,8 @@ When it finds a valid path, prints the results and terminates.
 
 For most of the cases execution ends quite fast, however, in same cases it may take quite long to find a possible path, due to the nature of the solution.
 
+(Note: Scala solution can be found [here](https://github.com/canoztokmak/hamiltonian-path-scala))
+
 ### Instructions
 
 1) Clone the repository.
